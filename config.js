@@ -39,7 +39,7 @@ window.BODA = {
     fechaLimiteTexto: "19 de noviembre",
     // URL de la aplicación web de Google Apps Script (ver README).
     // Mientras esté vacía, el formulario avisa que todavía no está activo.
-    endpoint: "",
+    endpoint: "https://script.google.com/macros/s/AKfycbx-beT-BTMRnUpseXnpc-GreSXqudYhXcSpyB3XrB8lhBsrToJ0RpaiYhMbDFhPuGLI/exec",
     bebidas: [
       "Vino tinto",
       "Vino blanco",
