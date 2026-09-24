@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Generar invitaciones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .gen { max-width: 32rem; margin: 0 auto; padding: 48px 16px 96px; text-align: left; }
+    .gen h1 { text-align: center; }
+    .gen .btn { display: block; width: 100%; text-align: center; }
+    .gen textarea { font-family: var(--sans); }
+    .resultado { margin-top: 2rem; border: 1px solid var(--linea); background: #fff; padding: 1.2rem; }
+    .resultado code { display: block; word-break: break-all; font-size: .8rem; background: var(--fondo); padding: .6rem; margin: .4rem 0; }
+    .ayuda { font-size: .85rem; color: var(--suave); }
+  </style>
+</head>
+<body>
+  <main class="gen">
+    <h1 class="script-titulo">Generar invitación</h1>
+    <p class="ayuda">Armá un link personalizado para cada grupo de invitados. En la invitación aparecen los nombres de las personas incluidas y cada una confirma por separado.</p>
+
+    <div class="campo">
+      <label for="grupo">Cómo se saluda en la portada</label>
+      <input id="grupo" type="text" placeholder="Familia Pérez · Juan y Ana · Sofi">
+    </div>
+    <div class="campo">
+      <label for="personas">Personas incluidas (una por línea)</label>
+      <textarea id="personas" rows="5" placeholder="Juan Pérez&#10;Ana López"></textarea>
+    </div>
+    <button id="generar" class="btn" type="button">Generar link</button>
+
+    <div id="resultado" class="resultado" hidden>
+      <label>Link de la invitación</label>
+      <code id="link"></code>
+      <label for="mensaje-wa">Mensaje para WhatsApp</label>
+      <textarea id="mensaje-wa" rows="5"></textarea>
+      <button id="copiar" class="btn btn--linea" type="button">Copiar mensaje</button>
+      <a id="whatsapp" class="btn" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+      <a id="probar" class="btn btn--linea" target="_blank" rel="noopener">Ver invitación</a>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script>
+    (function () {
+      var $ = function (s) { return document.querySelector(s); };
+      var base = location.href.replace(/generar\.html.*$/, "");
+
+      function encode(obj) {
+        var bytes = new TextEncoder().encode(JSON.stringify(obj));
+        var bin = "";
+        bytes.forEach(function (b) { bin += String.fromCharCode(b); });
+        return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+      }
+
+      function actualizarWhatsapp() {
+        $("#whatsapp").href = "https://wa.me/?text=" + encodeURIComponent($("#mensaje-wa").value);
+      }
+
+      $("#generar").addEventListener("click", function () {
+        var personas = $("#personas").value.split("\n").map(function (s) { return s.trim(); }).filter(Boolean);
+        if (!personas.length) { alert("Escribí al menos una persona."); return; }
+        var grupo = $("#grupo").value.trim() || personas.join(" y ");
+        var link = base + "?i=" + encode({ g: grupo, p: personas });
+
+        $("#link").textContent = link;
+        $("#probar").href = link;
+        $("#mensaje-wa").value =
+          "¡Hola " + grupo + "! Con mucha alegría queremos " + (personas.length > 1 ? "invitarlos" : "invitarte") +
+          " a nuestro casamiento el 19 de diciembre. Acá está la invitación, con todos los detalles y el formulario para confirmar:\n\n" +
+          link + "\n\nRafa y Dani";
+        actualizarWhatsapp();
+        $("#resultado").hidden = false;
+      });
+
+      $("#mensaje-wa").addEventListener("input", actualizarWhatsapp);
+
+      $("#copiar").addEventListener("click", function () {
+        var ta = $("#mensaje-wa");
+        ta.select();
+        (navigator.clipboard ? navigator.clipboard.writeText(ta.value) : Promise.resolve(document.execCommand("copy")))
+          .then(function () {
+            var t = $("#toast");
+            t.textContent = "Mensaje copiado";
+            t.classList.add("visible");
+            setTimeout(function () { t.classList.remove("visible"); }, 2000);
+          });
+      });
+    })();
+  </script>
+</body>
+</html>

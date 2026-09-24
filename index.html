@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rafa y Dani · 19.12.2026</title>
+  <meta name="description" content="Nos casamos el 19 de diciembre de 2026. ¡Te esperamos!">
+  <meta property="og:title" content="Rafa y Dani · Nos casamos">
+  <meta property="og:description" content="19 de diciembre de 2026 · Confirmá tu asistencia antes del 19 de noviembre">
+  <meta property="og:image" content="https://iferrero-leenspace.github.io/rafaydani/assets/og.jpg">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#FFFCF7">
+  <link rel="icon" href="assets/flor.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,300&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="cerrado">
+
+  <!-- Portada: sobre que se abre (el clic habilita la música) -->
+  <div id="sobre" class="sobre" role="dialog" aria-label="Invitación">
+    <div class="sobre__contenido">
+      <img src="assets/flor.png" alt="" class="flor flor--sm">
+      <p class="caps caps--sm">Tenemos el honor de invitar a</p>
+      <p id="sobre-para" class="sobre__para">nuestros seres queridos</p>
+      <p class="caps caps--sm">a celebrar nuestro casamiento</p>
+      <button id="abrir" class="btn">Abrir invitación</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- Hero, a imagen del save the date -->
+    <section class="hero">
+      <img src="assets/flor.png" alt="" class="flor">
+      <h1 class="titulo">
+        <span class="titulo__caps">Nos</span>
+        <span class="titulo__script">vamos a</span>
+        <span class="titulo__caps">Casar</span>
+      </h1>
+      <p class="nombres" data-bind="novios"></p>
+      <hr class="linea">
+      <p class="caps fecha" data-bind="fechaTexto"></p>
+      <p class="caps caps--it">Montevideo · Uruguay</p>
+      <a href="#cuenta" class="scroll" aria-label="Bajar">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 9l6 6 6-6"/></svg>
+      </a>
+    </section>
+
+    <!-- Invitados de este link -->
+    <section id="para" class="seccion para reveal" hidden>
+      <p class="caps caps--sm">Esta invitación es para</p>
+      <ul id="para-lista" class="para__lista"></ul>
+      <p id="para-nota" class="texto-suave"></p>
+    </section>
+
+    <!-- Cuenta regresiva -->
+    <section id="cuenta" class="seccion reveal">
+      <p class="script-titulo">Faltan</p>
+      <div class="cuenta" aria-live="off">
+        <div><span id="c-dias">--</span><small>días</small></div>
+        <div><span id="c-horas">--</span><small>horas</small></div>
+        <div><span id="c-min">--</span><small>min</small></div>
+        <div><span id="c-seg">--</span><small>seg</small></div>
+      </div>
+      <a id="agendar" class="btn btn--linea" target="_blank" rel="noopener">Agendar en el calendario</a>
+    </section>
+
+    <!-- Ceremonia y fiesta -->
+    <section class="seccion eventos">
+      <article class="evento reveal">
+        <svg class="icono" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <circle cx="25" cy="38" r="14"/><circle cx="39" cy="38" r="14"/><path d="M28 18l4-6 4 6-4 4z"/>
+        </svg>
+        <h2 class="caps caps--titulo">Ceremonia</h2>
+        <p class="evento__hora" data-bind="ceremonia.hora"></p>
+        <p class="evento__lugar" data-bind="ceremonia.lugar"></p>
+        <p class="texto-suave" data-bind="ceremonia.direccion"></p>
+        <a class="btn btn--linea" data-href="ceremonia.mapa" target="_blank" rel="noopener">Cómo llegar</a>
+      </article>
+
+      <div class="separador" aria-hidden="true"></div>
+
+      <article class="evento reveal">
+        <svg class="icono" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <path d="M16 10h14l-1 14a6 6 0 0 1-12 0z"/><path d="M23 30v20M17 52h12"/>
+          <path d="M34 10h14l-1 14a6 6 0 0 1-12 0z"/><path d="M41 30v20M35 52h12"/>
+          <path d="M31 8l2-4M28 6l-1-3M35 7l3-2"/>
+        </svg>
+        <h2 class="caps caps--titulo">Fiesta</h2>
+        <p class="evento__hora" data-bind="fiesta.hora"></p>
+        <p class="evento__lugar" data-bind="fiesta.lugar"></p>
+        <p class="texto-suave" data-bind="fiesta.direccion"></p>
+        <div class="camino">
+          <p class="caps caps--sm">Camino sugerido</p>
+          <ol id="camino" class="camino__pasos"></ol>
+        </div>
+        <a class="btn btn--linea" data-href="fiesta.mapa" target="_blank" rel="noopener">Cómo llegar</a>
+      </article>
+    </section>
+
+    <!-- Dress code -->
+    <section class="seccion reveal">
+      <svg class="icono" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <path d="M24 8l8 8 8-8M24 8l-10 6 4 42h28l4-42-10-6"/><path d="M32 16v40M28 22l4 4 4-4"/>
+      </svg>
+      <h2 class="caps caps--titulo">Dress code</h2>
+      <p class="script-grande" data-bind="dressCode"></p>
+    </section>
+
+    <!-- Galería -->
+    <section id="galeria" class="seccion reveal" hidden>
+      <p class="script-titulo">Nosotros</p>
+      <div id="fotos" class="galeria"></div>
+    </section>
+
+    <!-- Regalos -->
+    <section class="seccion reveal">
+      <svg class="icono" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <rect x="12" y="26" width="40" height="28"/><rect x="9" y="18" width="46" height="8"/><path d="M32 18v36"/>
+        <path d="M32 18c-4-10-16-10-12-2 2 3 12 2 12 2zM32 18c4-10 16-10 12-2-2 3-12 2-12 2z"/>
+      </svg>
+      <h2 class="caps caps--titulo">Regalos</h2>
+      <p class="texto" data-bind="regalos.texto"></p>
+      <div id="cuentas" class="cuentas"></div>
+    </section>
+
+    <!-- Confirmación -->
+    <section id="rsvp" class="seccion reveal">
+      <p class="script-titulo">Confirmá tu asistencia</p>
+      <p class="texto-suave">Por favor, confirmá antes del <strong data-bind="rsvp.fechaLimiteTexto"></strong>.</p>
+
+      <form id="form" class="form" novalidate>
+        <div id="form-general" class="campo" hidden>
+          <label for="nombre-general">Nombre y apellido</label>
+          <input id="nombre-general" type="text" autocomplete="name">
+        </div>
+        <div id="personas"></div>
+        <div class="campo">
+          <label for="mensaje">Un mensaje para los novios <span class="opc">(opcional)</span></label>
+          <textarea id="mensaje" rows="3"></textarea>
+        </div>
+        <p id="form-error" class="form__error" role="alert"></p>
+        <button id="enviar" type="submit" class="btn">Enviar confirmación</button>
+      </form>
+
+      <div id="gracias" class="gracias" hidden>
+        <p class="script-grande">¡Gracias!</p>
+        <p id="gracias-texto" class="texto"></p>
+        <button id="modificar" type="button" class="btn btn--linea">Modificar respuesta</button>
+      </div>
+
+      <p id="rsvp-cerrado" class="texto" hidden>El plazo para confirmar ya terminó. Si necesitás avisarnos algo, escribinos directamente.</p>
+    </section>
+
+    <footer class="pie reveal">
+      <img src="assets/flor.png" alt="" class="flor flor--sm">
+      <p class="caps caps--sm">¡Te esperamos!</p>
+      <p class="nombres" data-bind="novios"></p>
+      <p class="caps caps--sm" data-bind="fechaTexto"></p>
+    </footer>
+  </main>
+
+  <!-- Música -->
+  <button id="musica" class="musica" aria-label="Pausar música" hidden>
+    <svg class="musica__on" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>
+    <svg class="musica__off" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/><path d="M3 3l18 18"/></svg>
+  </button>
+  <audio id="audio" loop preload="none"></audio>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
