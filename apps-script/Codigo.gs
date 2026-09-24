@@ -50,8 +50,34 @@ function doPost(e) {
   }
 }
 
+// Abrir la URL /exec en el navegador sirve para verificar que la implementación funciona.
+function doGet() {
+  var respuesta;
+  try {
+    respuesta = { ok: true, planilla: SpreadsheetApp.getActiveSpreadsheet().getName(), hoja: obtenerHoja_().getName() };
+  } catch (err) {
+    respuesta = { ok: false, error: String(err) };
+  }
+  return ContentService.createTextOutput(JSON.stringify(respuesta))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// Ejecutar desde el editor (botón "Ejecutar") para probar que se escribe en la planilla.
+function prueba() {
+  var resultado = doPost({ postData: { contents: JSON.stringify({
+    invitacion: "PRUEBA (borrar)",
+    codigo: "prueba",
+    personas: [{ nombre: "Prueba", asiste: "Sí", restriccion: "", bebida: "Espumante" }],
+    mensaje: "Fila de prueba, se puede borrar",
+  }) } });
+  Logger.log(resultado.getContent());
+}
+
 function obtenerHoja_() {
   var libro = SpreadsheetApp.getActiveSpreadsheet();
+  if (!libro) {
+    throw new Error("El script no está vinculado a una planilla: crealo desde la planilla con Extensiones → Apps Script.");
+  }
   var hoja = libro.getSheetByName(HOJA);
   if (!hoja) {
     hoja = libro.insertSheet(HOJA);
