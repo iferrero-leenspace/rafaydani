@@ -279,17 +279,20 @@
     btn.disabled = true;
     btn.textContent = "Enviando…";
 
-    // Apps Script no devuelve CORS; con no-cors el envío llega igual.
+    // text/plain evita el preflight de CORS; Apps Script responde { ok, error }.
     fetch(B.rsvp.endpoint, {
       method: "POST",
-      mode: "no-cors",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(datos),
-    }).then(function () {
+    }).then(function (res) {
+      return res.json();
+    }).then(function (res) {
+      if (!res || !res.ok) throw new Error(res && res.error);
       try { localStorage.setItem(claveLocal, JSON.stringify(datos)); } catch (e) { /* ignorar */ }
       mostrarGracias(datos);
-    }).catch(function () {
-      error.textContent = "No pudimos enviar la confirmación. Revisá tu conexión e intentá de nuevo.";
+    }).catch(function (err) {
+      if (window.console) console.error("RSVP:", err);
+      error.textContent = "No pudimos enviar la confirmación. Intentá de nuevo en unos minutos.";
     }).then(function () {
       btn.disabled = false;
       btn.textContent = "Enviar confirmación";

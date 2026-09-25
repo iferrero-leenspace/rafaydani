@@ -33,6 +33,13 @@ Cada persona queda en una fila con: fecha de envío, invitación, nombre, asiste
 
 Después del 19 de noviembre el formulario se cierra solo.
 
+### Si las confirmaciones no llegan
+
+- La hoja **"Confirmaciones"** es una pestaña nueva (abajo, al lado de "Hoja 1").
+- Abrir la URL `/exec` en el navegador: tiene que mostrar `{"ok":true,...}`. Si pide iniciar sesión o dice que no hay permiso, la implementación no está en "Cualquier usuario".
+- En Apps Script, ejecutar la función `prueba` y mirar **Ejecuciones** (menú izquierdo) para ver errores.
+- Después de cambiar el código hay que publicar una versión nueva: **Implementar → Administrar implementaciones → ✏️ → Versión: Nueva versión → Implementar**. La URL no cambia.
+
 ## Publicar en GitHub Pages
 
 1. Unir esta rama a `main`.
