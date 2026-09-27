@@ -13,7 +13,7 @@ Invitación web del casamiento. Es un sitio estático (HTML, CSS y JS, sin build
 
 Cada grupo recibe su propio link. La invitación muestra "Esta invitación es para: Juan Pérez, Ana López" y "Reservamos 2 lugares", y el formulario pide la confirmación de cada persona por separado. Así queda claro quiénes están invitados.
 
-1. Abrir `…/generar.html` en el sitio publicado.
+1. Abrir **https://iferrero-leenspace.github.io/rafaydani/generar.html**.
 2. Poner el saludo (p. ej. "Familia Pérez") y las personas, una por línea.
 3. Copiar el mensaje o tocar "Enviar por WhatsApp".
 
