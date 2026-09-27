@@ -71,9 +71,11 @@
 
         $("#link").textContent = link;
         $("#probar").href = link;
+        var singular = personas.length === 1;
         $("#mensaje-wa").value =
-          "¡Hola " + grupo + "! Con mucha alegría queremos " + (personas.length > 1 ? "invitarlos" : "invitarte") +
-          " a nuestro casamiento el 19 de diciembre. Acá está la invitación, con todos los detalles y el formulario para confirmar:\n\n" +
+          "¡Hola " + grupo + "! Con mucha alegría queremos " + (singular ? "invitarte" : "invitarlos") +
+          " a nuestro casamiento el 19 de diciembre. En este link " + (singular ? "encontrarás" : "encontrarán") +
+          " todos los detalles y el formulario para confirmar:\n\n" +
           link + "\n\nRafa y Dani";
         actualizarWhatsapp();
         $("#resultado").hidden = false;
