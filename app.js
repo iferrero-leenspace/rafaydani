@@ -172,19 +172,23 @@
 
   function campoPersona(nombre, idx) {
     var id = "p" + idx;
+    var selectRestr = el("select", { id: id + "-restr" }, [el("option", { value: "", text: "Ninguna" })]);
+    B.rsvp.restricciones.forEach(function (r) { selectRestr.appendChild(el("option", { value: r, text: r })); });
+
+    var campoOtro = el("div", { hidden: "" }, [
+      el("label", { for: id + "-restr-otro", text: "¿Cuál?" }),
+      el("input", { id: id + "-restr-otro", type: "text", placeholder: "Ej: Kosher" }),
+    ]);
+    selectRestr.addEventListener("change", function () {
+      campoOtro.hidden = selectRestr.value !== "Otros";
+    });
+
     var extra = el("div", { class: "persona__extra", hidden: "" }, [
       el("div", {}, [
         el("label", { for: id + "-restr", text: "Restricción alimentaria" }),
-        el("input", { id: id + "-restr", type: "text", placeholder: "Ninguna, vegetariano, celíaco…" }),
+        selectRestr,
       ]),
-      el("div", {}, [
-        el("label", { for: id + "-bebida", text: "Bebida preferida" }),
-        (function () {
-          var s = el("select", { id: id + "-bebida" }, [el("option", { value: "", text: "Elegí una opción" })]);
-          B.rsvp.bebidas.forEach(function (b) { s.appendChild(el("option", { value: b, text: b })); });
-          return s;
-        })(),
-      ]),
+      campoOtro,
     ]);
 
     var opciones = el("div", { class: "opciones", role: "radiogroup", "aria-label": "Asistencia de " + (nombre || "invitado") }, [
@@ -244,22 +248,37 @@
 
     var lista = [];
     var faltan = false;
+    var faltaOtro = false;
     document.querySelectorAll(".persona").forEach(function (div) {
       var id = div.getAttribute("data-id");
       var marcado = div.querySelector("input[type=radio]:checked");
       if (!marcado) { faltan = true; return; }
       var va = marcado.value === "Sí";
+      var restriccion = "";
+      if (va) {
+        var seleccion = $("#" + id + "-restr").value;
+        if (seleccion === "Otros") {
+          var otro = $("#" + id + "-restr-otro").value.trim();
+          if (!otro) { faltaOtro = true; return; }
+          restriccion = otro;
+        } else {
+          restriccion = seleccion;
+        }
+      }
       lista.push({
         nombre: div.getAttribute("data-nombre") || nombreGeneral,
         asiste: marcado.value,
-        restriccion: va ? $("#" + id + "-restr").value.trim() : "",
-        bebida: va ? $("#" + id + "-bebida").value : "",
+        restriccion: restriccion,
       });
     });
     if (faltan) {
       error.textContent = invitacion && invitacion.personas.length > 1
         ? "Indicá si asiste cada una de las personas."
         : "Indicá si vas a asistir.";
+      return;
+    }
+    if (faltaOtro) {
+      error.textContent = "Contanos cuál es la restricción alimentaria.";
       return;
     }
 
