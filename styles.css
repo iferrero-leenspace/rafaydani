@@ -95,12 +95,13 @@ body:not(.cerrado) .sobre { opacity: 0; visibility: hidden; }
 .titulo { margin: 0; font-weight: 400; line-height: 1; }
 .titulo__caps {
   display: block;
-  font-size: clamp(3.4rem, 17vw, 6rem);
+  font-size: clamp(2.6rem, 13vw, 6rem);
   letter-spacing: .22em;
   margin-right: -.22em; /* compensa el espaciado de la última letra */
   text-transform: uppercase;
   font-weight: 400;
 }
+.titulo__caps + .titulo__caps { margin-top: .12em; }
 .titulo__script {
   display: block;
   font-family: var(--script);
