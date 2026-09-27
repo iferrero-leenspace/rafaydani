@@ -216,11 +216,13 @@
     $("#gracias-texto").textContent = van
       ? "Recibimos tu confirmación. ¡Nos vemos el " + B.fechaTexto.replace(/ \d{4}$/, "") + "!"
       : "Recibimos tu respuesta. ¡Te vamos a extrañar!";
+    $("#rsvp-intro").hidden = true;
     $("#form").hidden = true;
     $("#gracias").hidden = false;
   }
 
   if (new Date() > limite) {
+    $("#rsvp-intro").hidden = true;
     $("#form").hidden = true;
     $("#rsvp-cerrado").hidden = false;
   } else {
@@ -232,6 +234,7 @@
 
   $("#modificar").addEventListener("click", function () {
     $("#gracias").hidden = true;
+    $("#rsvp-intro").hidden = false;
     $("#form").hidden = false;
   });
 
