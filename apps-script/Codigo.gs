@@ -10,7 +10,6 @@ var ENCABEZADOS = [
   "Nombre",
   "Asiste",
   "Restricción alimentaria",
-  "Bebida preferida",
   "Mensaje",
   "Código",
 ];
@@ -31,7 +30,6 @@ function doPost(e) {
         limpiar_(p.nombre),
         limpiar_(p.asiste),
         limpiar_(p.restriccion),
-        limpiar_(p.bebida),
         i === 0 ? limpiar_(datos.mensaje) : "",
         limpiar_(datos.codigo),
       ];
@@ -67,7 +65,7 @@ function prueba() {
   var resultado = doPost({ postData: { contents: JSON.stringify({
     invitacion: "PRUEBA (borrar)",
     codigo: "prueba",
-    personas: [{ nombre: "Prueba", asiste: "Sí", restriccion: "", bebida: "Espumante" }],
+    personas: [{ nombre: "Prueba", asiste: "Sí", restriccion: "Vegetariano" }],
     mensaje: "Fila de prueba, se puede borrar",
   }) } });
   Logger.log(resultado.getContent());

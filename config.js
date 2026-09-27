@@ -40,14 +40,12 @@ window.BODA = {
     // URL de la aplicación web de Google Apps Script (ver README).
     // Mientras esté vacía, el formulario avisa que todavía no está activo.
     endpoint: "https://script.google.com/macros/s/AKfycbx-beT-BTMRnUpseXnpc-GreSXqudYhXcSpyB3XrB8lhBsrToJ0RpaiYhMbDFhPuGLI/exec",
-    bebidas: [
-      "Vino tinto",
-      "Vino blanco",
-      "Espumante",
-      "Cerveza",
-      "Whisky",
-      "Gin / tragos",
-      "Sin alcohol",
+    restricciones: [
+      "Vegetariano",
+      "Vegano",
+      "Celíaco",
+      "Intolerante a la lactosa",
+      "Otros",
     ],
   },
 

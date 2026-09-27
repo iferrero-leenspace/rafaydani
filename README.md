@@ -4,7 +4,7 @@ Invitación web del casamiento. Es un sitio estático (HTML, CSS y JS, sin build
 
 | Archivo | Para qué |
 |---|---|
-| `config.js` | **Todos los datos editables**: fecha, lugares, mapas, camino sugerido, cuentas, bebidas, música, fotos. |
+| `config.js` | **Todos los datos editables**: fecha, lugares, mapas, camino sugerido, cuentas, opciones de restricción alimentaria, música, fotos. |
 | `index.html` | La invitación. |
 | `generar.html` | Arma el link personalizado de cada grupo de invitados y el mensaje de WhatsApp. |
 | `apps-script/Codigo.gs` | Script que anota las confirmaciones en una planilla de Google. |
@@ -29,7 +29,9 @@ Los nombres van dentro del link. No hay una lista de invitados guardada en el re
 4. Autorizar los permisos y copiar la **URL de la aplicación web** (termina en `/exec`).
 5. Pegarla en `config.js` → `rsvp.endpoint`.
 
-Cada persona queda en una fila con: fecha de envío, invitación, nombre, asiste (Sí/No), restricción alimentaria, bebida preferida y mensaje. La hoja "Confirmaciones" se crea sola con el primer envío. Si alguien modifica su respuesta se agrega una fila nueva: vale la más reciente.
+Cada persona queda en una fila con: fecha de envío, invitación, nombre, asiste (Sí/No), restricción alimentaria y mensaje. La hoja "Confirmaciones" se crea sola con el primer envío. Si alguien modifica su respuesta se agrega una fila nueva: vale la más reciente.
+
+Si la hoja "Confirmaciones" ya existe con la columna vieja "Bebida preferida", el script no la borra solo: hay que sacarla a mano (clic derecho en la columna → Eliminar columna). Si esa pestaña todavía tiene solo filas de prueba, es más simple borrar la pestaña entera: se vuelve a crear sola, ya sin esa columna, con la próxima confirmación.
 
 Después del 19 de noviembre el formulario se cierra solo.
 
