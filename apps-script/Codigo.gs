@@ -22,6 +22,11 @@ function doPost(e) {
     var hoja = obtenerHoja_();
     var ahora = new Date();
     var personas = Array.isArray(datos.personas) ? datos.personas : [];
+    var codigo = limpiar_(datos.codigo);
+
+    // Si alguna de estas personas ya había confirmado con este mismo link, se
+    // borra su fila anterior: la nueva respuesta reemplaza a la vieja.
+    borrarFilasAnteriores_(hoja, codigo, personas.map(function (p) { return limpiar_(p.nombre); }));
 
     var filas = personas.map(function (p, i) {
       return [
@@ -69,6 +74,25 @@ function prueba() {
     mensaje: "Fila de prueba, se puede borrar",
   }) } });
   Logger.log(resultado.getContent());
+}
+
+// Borra las filas de estas personas (mismo código de invitación + nombre)
+// que ya estuvieran en la planilla, de abajo hacia arriba para no correr
+// los índices de fila mientras se borra.
+function borrarFilasAnteriores_(hoja, codigo, nombres) {
+  var ultimaFila = hoja.getLastRow();
+  if (ultimaFila < 2 || !nombres.length) return;
+
+  var colCodigo = ENCABEZADOS.indexOf("Código") + 1;
+  var colNombre = ENCABEZADOS.indexOf("Nombre") + 1;
+  var datos = hoja.getRange(2, 1, ultimaFila - 1, ENCABEZADOS.length).getValues();
+
+  for (var i = datos.length - 1; i >= 0; i--) {
+    var fila = datos[i];
+    if (String(fila[colCodigo - 1]) === codigo && nombres.indexOf(String(fila[colNombre - 1])) !== -1) {
+      hoja.deleteRow(i + 2);
+    }
+  }
 }
 
 function obtenerHoja_() {

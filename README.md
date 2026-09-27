@@ -29,7 +29,9 @@ Los nombres van dentro del link. No hay una lista de invitados guardada en el re
 4. Autorizar los permisos y copiar la **URL de la aplicación web** (termina en `/exec`).
 5. Pegarla en `config.js` → `rsvp.endpoint`.
 
-Cada persona queda en una fila con: fecha de envío, invitación, nombre, asiste (Sí/No), restricción alimentaria y mensaje. La hoja "Confirmaciones" se crea sola con el primer envío. Si alguien modifica su respuesta se agrega una fila nueva: vale la más reciente.
+Cada persona queda en una fila con: fecha de envío, invitación, nombre, asiste (Sí/No), restricción alimentaria y mensaje. La hoja "Confirmaciones" se crea sola con el primer envío. Si alguien modifica su respuesta (tocando "Modificar respuesta"), la fila anterior de esa persona se borra y se reemplaza por la nueva: no quedan filas viejas dando vueltas.
+
+Esto identifica a cada persona por el link de invitación (el código) más su nombre. Dos personas con el mismo nombre en dos links distintos no se pisan entre sí. Si dos invitados sin link personalizado (usando la página general) confirman con el mismo nombre y apellido, sí se van a pisar: para invitados sueltos conviene siempre generar un link con `generar.html` en vez de compartir la página general.
 
 Si la hoja "Confirmaciones" ya existe con la columna vieja "Bebida preferida", el script no la borra solo: hay que sacarla a mano (clic derecho en la columna → Eliminar columna). Si esa pestaña todavía tiene solo filas de prueba, es más simple borrar la pestaña entera: se vuelve a crear sola, ya sin esa columna, con la próxima confirmación.
 
