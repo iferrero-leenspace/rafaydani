@@ -171,6 +171,23 @@
 
   <div id="toast" class="toast" role="status"></div>
 
+  <!-- Foto ampliada -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+    <button id="lightbox-cerrar" class="lightbox__cerrar" type="button" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <button id="lightbox-anterior" class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Foto anterior">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <figure class="lightbox__figura">
+      <img id="lightbox-img" class="lightbox__img" src="" alt="Rafa y Dani">
+      <figcaption id="lightbox-contador" class="lightbox__contador"></figcaption>
+    </figure>
+    <button id="lightbox-siguiente" class="lightbox__nav lightbox__nav--next" type="button" aria-label="Foto siguiente">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
   <script src="config.js"></script>
   <script src="app.js"></script>
 </body>

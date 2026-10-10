@@ -123,12 +123,68 @@
       "Dress code: " + B.dressCode + "\n" + location.href.split("#")[0]
     );
 
-  // ---------- Galería ----------
+  // ---------- Galería y foto ampliada (lightbox) ----------
   if (B.fotos && B.fotos.length) {
     $("#galeria").hidden = false;
-    B.fotos.forEach(function (src) {
-      $("#fotos").appendChild(el("img", { src: src, alt: "", loading: "lazy" }));
+
+    var lightbox = $("#lightbox");
+    var lightboxImg = $("#lightbox-img");
+    var lightboxContador = $("#lightbox-contador");
+    var btnAnterior = $("#lightbox-anterior");
+    var btnSiguiente = $("#lightbox-siguiente");
+    var indiceActual = 0;
+    var disparador = null;
+    var hayVarias = B.fotos.length > 1;
+    btnAnterior.hidden = !hayVarias;
+    btnSiguiente.hidden = !hayVarias;
+
+    function mostrarFoto(i) {
+      indiceActual = (i + B.fotos.length) % B.fotos.length;
+      lightboxImg.src = B.fotos[indiceActual];
+      lightboxContador.textContent = hayVarias ? (indiceActual + 1) + " / " + B.fotos.length : "";
+    }
+    function abrirLightbox(i, origen) {
+      disparador = origen;
+      mostrarFoto(i);
+      lightbox.hidden = false;
+      document.body.classList.add("lightbox-abierto");
+      $("#lightbox-cerrar").focus();
+    }
+    function cerrarLightbox() {
+      lightbox.hidden = true;
+      document.body.classList.remove("lightbox-abierto");
+      if (disparador) disparador.focus();
+    }
+
+    B.fotos.forEach(function (src, i) {
+      var img = el("img", { src: src, alt: "", loading: "lazy" });
+      var boton = el("button", { type: "button", class: "foto-btn", "aria-label": "Ver foto ampliada" }, [img]);
+      boton.addEventListener("click", function () { abrirLightbox(i, boton); });
+      $("#fotos").appendChild(boton);
     });
+
+    $("#lightbox-cerrar").addEventListener("click", cerrarLightbox);
+    btnSiguiente.addEventListener("click", function () { mostrarFoto(indiceActual + 1); });
+    btnAnterior.addEventListener("click", function () { mostrarFoto(indiceActual - 1); });
+    lightbox.addEventListener("click", function (ev) {
+      if (ev.target === lightbox) cerrarLightbox();
+    });
+    document.addEventListener("keydown", function (ev) {
+      if (lightbox.hidden) return;
+      if (ev.key === "Escape") cerrarLightbox();
+      else if (ev.key === "ArrowRight") mostrarFoto(indiceActual + 1);
+      else if (ev.key === "ArrowLeft") mostrarFoto(indiceActual - 1);
+    });
+
+    // Deslizar para pasar de foto en celular.
+    var inicioX = null;
+    lightbox.addEventListener("touchstart", function (ev) { inicioX = ev.touches[0].clientX; }, { passive: true });
+    lightbox.addEventListener("touchend", function (ev) {
+      if (inicioX == null) return;
+      var delta = ev.changedTouches[0].clientX - inicioX;
+      if (Math.abs(delta) > 40) mostrarFoto(indiceActual + (delta < 0 ? 1 : -1));
+      inicioX = null;
+    }, { passive: true });
   }
 
   // ---------- Cuentas bancarias ----------
