@@ -324,7 +324,17 @@
   personas.forEach(function (p, i) { $("#personas").appendChild(campoPersona(p, i)); });
   if (!invitacion) $("#form-general").hidden = false;
 
-  function mostrarGracias(datos) {
+  // Al terminar de confirmar el formulario desaparece y la página se acorta: se lleva
+  // la vista al mensaje de gracias para que quede en el centro de la pantalla.
+  function centrarGracias() {
+    var g = $("#gracias");
+    var sinAnimacion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    g.scrollIntoView({ behavior: sinAnimacion ? "auto" : "smooth", block: "center" });
+    g.setAttribute("tabindex", "-1");
+    g.focus({ preventScroll: true });
+  }
+
+  function mostrarGracias(datos, irAlMensaje) {
     var van = datos.personas.filter(function (p) { return p.asiste === "Sí"; }).length;
     $("#gracias-texto").textContent = van
       ? "Recibimos tu confirmación. ¡Nos vemos el " + B.fechaTexto.replace(/ \d{4}$/, "") + "!"
@@ -332,6 +342,7 @@
     $("#rsvp-intro").hidden = true;
     $("#form").hidden = true;
     $("#gracias").hidden = false;
+    if (irAlMensaje) centrarGracias();
   }
 
   if (new Date() > limite) {
@@ -353,6 +364,7 @@
 
   $("#form").addEventListener("submit", function (ev) {
     ev.preventDefault();
+    if (enviando) return;
     var error = $("#form-error");
     error.textContent = "";
 
@@ -410,12 +422,37 @@
       return;
     }
 
-    var btn = $("#enviar");
-    btn.disabled = true;
-    btn.textContent = "Enviando…";
+    enviar(datos, error);
+  });
+
+  // ---------- Envío de la confirmación, con pantalla de carga ----------
+  // Mientras se envía (a veces tarda un segundo) se muestra una rueda y se bloquea todo,
+  // para que se entienda que el botón ya se apretó y no se pueda tocar nada ni enviar dos veces.
+  var enviando = false;
+  var MINIMO_CARGA = 700; // ms: si responde muy rápido igual se alcanza a ver la carga
+  var pantallaCarga = el("div", { class: "cargando", role: "status", "aria-live": "polite", hidden: "" }, [
+    el("div", { class: "cargando__caja" }, [
+      el("span", { class: "cargando__rueda", "aria-hidden": "true" }),
+      el("p", { class: "cargando__texto", text: "Enviando tu confirmación…" }),
+    ]),
+  ]);
+  document.body.appendChild(pantallaCarga);
+
+  function bloquearPantalla(si) {
+    enviando = si;
+    pantallaCarga.hidden = !si;
+    document.body.classList.toggle("enviando", si);
+    $("#form").toggleAttribute("inert", si);
+    $("#enviar").disabled = si;
+    $("#enviar").textContent = si ? "Enviando…" : "Enviar confirmación";
+  }
+
+  function enviar(datos, error) {
+    bloquearPantalla(true);
+    var minimo = new Promise(function (ok) { setTimeout(ok, MINIMO_CARGA); });
 
     // text/plain evita el preflight de CORS; Apps Script responde { ok, error }.
-    fetch(B.rsvp.endpoint, {
+    var envio = fetch(B.rsvp.endpoint, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(datos),
@@ -423,16 +460,23 @@
       return res.json();
     }).then(function (res) {
       if (!res || !res.ok) throw new Error(res && res.error);
-      try { localStorage.setItem(claveLocal, JSON.stringify(datos)); } catch (e) { /* ignorar */ }
-      mostrarGracias(datos);
-    }).catch(function (err) {
-      if (window.console) console.error("RSVP:", err);
-      error.textContent = "No pudimos enviar la confirmación. Intentá de nuevo en unos minutos.";
-    }).then(function () {
-      btn.disabled = false;
-      btn.textContent = "Enviar confirmación";
     });
-  });
+
+    envio.then(function () {
+      return minimo.then(function () {
+        try { localStorage.setItem(claveLocal, JSON.stringify(datos)); } catch (e) { /* ignorar */ }
+        bloquearPantalla(false);
+        mostrarGracias(datos, true);
+      });
+    }, function (err) {
+      return minimo.then(function () {
+        if (window.console) console.error("RSVP:", err);
+        bloquearPantalla(false);
+        error.textContent = "No pudimos enviar la confirmación. Intentá de nuevo en unos minutos.";
+        $("#enviar").focus({ preventScroll: true });
+      });
+    });
+  }
 
   // ---------- Aparición al hacer scroll ----------
   var reveals = document.querySelectorAll(".reveal");

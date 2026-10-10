@@ -363,6 +363,32 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--t
 }
 .toast.visible { opacity: 1; transform: translate(-50%, 0); }
 
+/* ---------- Pantalla de carga al enviar ---------- */
+body.enviando { overflow: hidden; }
+.cargando {
+  position: fixed; inset: 0; z-index: 90;
+  display: grid; place-items: center;
+  background: rgba(255, 252, 247, .78);
+  -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+  cursor: progress;
+  animation: cargando-in .2s ease both;
+}
+.cargando__caja {
+  display: grid; justify-items: center; gap: 1rem;
+  padding: 1.9rem 2.4rem;
+  background: var(--fondo);
+  border: 1px solid var(--linea);
+  box-shadow: 0 14px 40px rgba(20, 20, 20, .12);
+}
+.cargando__rueda {
+  width: 34px; height: 34px;
+  border: 2px solid var(--linea); border-top-color: var(--tinta);
+  border-radius: 50%;
+  animation: girar .8s linear infinite;
+}
+.cargando__texto { margin: 0; font: 400 .72rem/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--suave); }
+@keyframes cargando-in { from { opacity: 0; } to { opacity: 1; } }
+
 /* ---------- Animaciones ---------- */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 1s ease, transform 1s ease; }
 .reveal.visible { opacity: 1; transform: none; }
@@ -373,4 +399,6 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--t
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
+  /* la rueda de carga sigue girando (más lenta): es lo que indica que algo está pasando */
+  .cargando__rueda { animation: girar 1.8s linear infinite !important; }
 }
