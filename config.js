@@ -4,6 +4,13 @@
 window.BODA = {
   novios: "Rafa y Dani",
 
+  // Foto de fondo de la portada. Vacío = portada sin foto (como antes).
+  heroFoto: "assets/fotos/1.jpg",
+  // Qué parte de la foto queda centrada (CSS background-position). Se ajusta
+  // mirando la portada: el primer número mueve el recorte a los costados,
+  // el segundo hacia arriba o abajo.
+  heroFotoPosicion: "48.7288% 83.0593%",
+
   // Hora de Uruguay (UTC-3)
   fechaISO: "2026-12-19T16:30:00-03:00",
   fechaTexto: "19 de diciembre 2026",
