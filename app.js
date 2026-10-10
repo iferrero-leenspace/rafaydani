@@ -48,8 +48,10 @@
 
     if (heroFotos.length > 1) {
       var btnCambiarFoto = $("#hero-cambiar-foto");
-      btnCambiarFoto.hidden = false;
-      btnCambiarFoto.addEventListener("click", function () { aplicarFotoHero(indiceHero + 1); });
+      if (btnCambiarFoto) { // la v2 ya no tiene este botón: usa siempre la primera foto
+        btnCambiarFoto.hidden = false;
+        btnCambiarFoto.addEventListener("click", function () { aplicarFotoHero(indiceHero + 1); });
+      }
     }
   }
 
