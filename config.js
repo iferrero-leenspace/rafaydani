@@ -4,12 +4,18 @@
 window.BODA = {
   novios: "Rafa y Dani",
 
-  // Foto de fondo de la portada. Vacío = portada sin foto (como antes).
-  heroFoto: "assets/fotos/1.jpg",
-  // Qué parte de la foto queda centrada (CSS background-position). Se ajusta
-  // mirando la portada: el primer número mueve el recorte a los costados,
-  // el segundo hacia arriba o abajo.
-  heroFotoPosicion: "48.7288% 83.0593%",
+  // Foto(s) de fondo de la portada. "posicion" es un CSS background-position:
+  // el primer número mueve el recorte a los costados, el segundo hacia
+  // arriba o abajo (se ajusta mirando cómo queda la portada).
+  //
+  // Con más de una foto en la lista aparece un botón arriba a la derecha
+  // para pasar de una a otra (para elegir entre varias antes de decidir).
+  // Cuando ya esté decidida, dejar una sola y el botón desaparece solo.
+  // Lista vacía ([]) = portada sin foto.
+  heroFotoAlternativas: [
+    { foto: "assets/fotos/1.jpg", posicion: "48.7288% 83.0593%" },
+    { foto: "assets/portada-bosque.jpg", posicion: "50% 72%" },
+  ],
 
   // Hora de Uruguay (UTC-3)
   fechaISO: "2026-12-19T16:30:00-03:00",
@@ -66,7 +72,7 @@ window.BODA = {
     "assets/fotos/2.jpg",
     "assets/fotos/3.jpg",
     "assets/fotos/4.jpg",
-    "assets/fotos/5.jpg",
     "assets/fotos/6.jpg",
+    "assets/fotos/5.jpg",
   ],
 };
