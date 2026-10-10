@@ -30,12 +30,27 @@
     $("#camino").appendChild(el("li", { text: paso }));
   });
 
-  // ---------- Foto de fondo de la portada ----------
-  if (B.heroFoto) {
+  // ---------- Foto de fondo de la portada (con alternativas para elegir) ----------
+  var heroFotos = (B.heroFotoAlternativas || []).filter(function (h) { return h && h.foto; });
+  if (heroFotos.length) {
     var hero = document.querySelector(".hero");
+    var indiceHero = 0;
+
+    function aplicarFotoHero(i) {
+      indiceHero = (i + heroFotos.length) % heroFotos.length;
+      var h = heroFotos[indiceHero];
+      hero.style.backgroundImage = "url('" + h.foto + "')";
+      hero.style.backgroundPosition = h.posicion || "center";
+    }
+
     hero.classList.add("hero--foto");
-    hero.style.backgroundImage = "url('" + B.heroFoto + "')";
-    hero.style.backgroundPosition = B.heroFotoPosicion || "center";
+    aplicarFotoHero(0);
+
+    if (heroFotos.length > 1) {
+      var btnCambiarFoto = $("#hero-cambiar-foto");
+      btnCambiarFoto.hidden = false;
+      btnCambiarFoto.addEventListener("click", function () { aplicarFotoHero(indiceHero + 1); });
+    }
   }
 
   // ---------- Invitación personalizada (?i=...) ----------
