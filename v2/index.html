@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;1,300&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="v2/styles.css">
+  <link rel="stylesheet" href="v2/styles.css?v=20261011">
 </head>
 <body class="cerrado">
 
@@ -28,7 +28,7 @@
       <p class="ojo">a celebrar nuestro casamiento</p>
       <button id="abrir" class="lacre" type="button" aria-label="Abrir invitación">
         <!-- Sello de lacre: cera con borde irregular, brillo, disco estampado y monograma en relieve -->
-        <svg class="lacre__svg" viewBox="0 0 140 140" aria-hidden="true">
+        <svg class="lacre__svg" viewBox="0 0 140 140" width="132" height="132" aria-hidden="true">
           <defs>
             <radialGradient id="lacre-cera" cx="38%" cy="32%" r="80%">
               <stop offset="0" stop-color="#8E2C3E"/>
@@ -85,9 +85,9 @@
             <circle cx="70" cy="70" r="32" fill="none" stroke="#1C0409" stroke-opacity=".55" stroke-width="1.9" stroke-linecap="round" stroke-dasharray=".1 4" transform="translate(.5 .6)"/>
             <circle cx="70" cy="70" r="32" fill="none" stroke="#B9586A" stroke-opacity=".75" stroke-width="1.6" stroke-linecap="round" stroke-dasharray=".1 4"/>
             <!-- monograma en relieve -->
-            <text class="lacre__mono" x="70" y="78.5" transform="translate(.8 1)" fill="#16030A" fill-opacity=".8" data-monograma>R&amp;D</text>
-            <text class="lacre__mono" x="70" y="78.5" transform="translate(-.55 -.55)" fill="#D98C9B" fill-opacity=".5" data-monograma>R&amp;D</text>
-            <text class="lacre__mono" x="70" y="78.5" fill="#7A2233" data-monograma>R&amp;D</text>
+            <text class="lacre__mono" x="70" y="78.5" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" font-size="27" transform="translate(.8 1)" fill="#16030A" fill-opacity=".8" data-monograma>R&amp;D</text>
+            <text class="lacre__mono" x="70" y="78.5" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" font-size="27" transform="translate(-.55 -.55)" fill="#D98C9B" fill-opacity=".5" data-monograma>R&amp;D</text>
+            <text class="lacre__mono" x="70" y="78.5" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" font-size="27" fill="#7A2233" data-monograma>R&amp;D</text>
             <!-- grano sobre todo el sello -->
             <circle cx="70" cy="70" r="55" fill="#000" filter="url(#lacre-grano)" opacity=".9" mask="url(#lacre-forma)"/>
           </g>
@@ -275,8 +275,8 @@
     </button>
   </div>
 
-  <script src="config.js"></script>
-  <script src="app.js"></script>
-  <script src="v2/v2.js"></script>
+  <script src="config.js?v=20261011"></script>
+  <script src="app.js?v=20261011"></script>
+  <script src="v2/v2.js?v=20261011"></script>
 </body>
 </html>
