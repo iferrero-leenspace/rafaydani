@@ -27,7 +27,71 @@
       <p id="sobre-para" class="sobre__para">nuestros seres queridos</p>
       <p class="ojo">a celebrar nuestro casamiento</p>
       <button id="abrir" class="lacre" type="button" aria-label="Abrir invitación">
-        <span class="lacre__mono" data-monograma>R&amp;D</span>
+        <!-- Sello de lacre: cera con borde irregular, brillo, disco estampado y monograma en relieve -->
+        <svg class="lacre__svg" viewBox="0 0 140 140" aria-hidden="true">
+          <defs>
+            <radialGradient id="lacre-cera" cx="38%" cy="32%" r="80%">
+              <stop offset="0" stop-color="#8E2C3E"/>
+              <stop offset=".5" stop-color="#5E1626"/>
+              <stop offset="1" stop-color="#2C0710"/>
+            </radialGradient>
+            <radialGradient id="lacre-disco" cx="62%" cy="68%" r="85%">
+              <stop offset="0" stop-color="#6E1C2C"/>
+              <stop offset=".75" stop-color="#4E1220"/>
+              <stop offset="1" stop-color="#360A14"/>
+            </radialGradient>
+            <!-- borde irregular de cera derramada, suavizado -->
+            <filter id="lacre-borde" x="-15%" y="-15%" width="130%" height="130%">
+              <feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="11" result="ruido"/>
+              <feDisplacementMap in="SourceGraphic" in2="ruido" scale="12" xChannelSelector="R" yChannelSelector="G" result="desplazado"/>
+              <feGaussianBlur in="desplazado" stdDeviation="1.4" result="suave"/>
+              <feColorMatrix in="suave" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/>
+            </filter>
+            <!-- volumen y brillo de la cera: luz arriba a la izquierda -->
+            <filter id="lacre-volumen" x="-15%" y="-15%" width="130%" height="130%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="3.2" result="alto"/>
+              <feSpecularLighting in="alto" surfaceScale="4" specularConstant="1" specularExponent="38" lighting-color="#FFFFFF" result="brillo">
+                <fePointLight x="10" y="0" z="70"/>
+              </feSpecularLighting>
+              <feComposite in="brillo" in2="SourceAlpha" operator="in" result="brilloDentro"/>
+              <feComposite in="SourceGraphic" in2="brilloDentro" operator="arithmetic" k2="1" k3=".42" result="conBrillo"/>
+              <feComposite in="conBrillo" in2="SourceAlpha" operator="in"/>
+            </filter>
+            <!-- grano sutil de la cera -->
+            <filter id="lacre-grano" x="0" y="0" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="4" result="g"/>
+              <feColorMatrix in="g" type="matrix" values="0 0 0 0 1  0 0 0 0 .85  0 0 0 0 .88  0 0 0 .09 0" result="gc"/>
+              <feComposite in="gc" in2="SourceAlpha" operator="in"/>
+            </filter>
+            <filter id="lacre-sombra" x="-25%" y="-25%" width="150%" height="150%">
+              <feDropShadow dx="1" dy="5" stdDeviation="4" flood-color="#2A0810" flood-opacity=".45"/>
+            </filter>
+            <clipPath id="lacre-recorte-disco"><circle cx="70" cy="70" r="38"/></clipPath>
+            <mask id="lacre-forma"><circle cx="70" cy="70" r="55" fill="#fff" filter="url(#lacre-borde)"/></mask>
+          </defs>
+          <g filter="url(#lacre-sombra)">
+            <!-- cera -->
+            <g filter="url(#lacre-volumen)">
+              <circle cx="70" cy="70" r="55" fill="url(#lacre-cera)" filter="url(#lacre-borde)"/>
+            </g>
+            <!-- disco hundido por el sello: pared oscura arriba-izquierda, iluminada abajo-derecha -->
+            <circle cx="70" cy="70" r="38" fill="url(#lacre-disco)"/>
+            <g clip-path="url(#lacre-recorte-disco)" fill="none">
+              <circle cx="72.6" cy="72.8" r="38" stroke="#14020A" stroke-opacity=".7" stroke-width="5"/>
+              <circle cx="67.6" cy="67.4" r="38" stroke="#D88A99" stroke-opacity=".28" stroke-width="3"/>
+            </g>
+            <circle cx="70" cy="70" r="38.6" fill="none" stroke="#C0606F" stroke-opacity=".35" stroke-width=".8"/>
+            <!-- guarda de puntitos en relieve -->
+            <circle cx="70" cy="70" r="32" fill="none" stroke="#1C0409" stroke-opacity=".55" stroke-width="1.9" stroke-linecap="round" stroke-dasharray=".1 4" transform="translate(.5 .6)"/>
+            <circle cx="70" cy="70" r="32" fill="none" stroke="#B9586A" stroke-opacity=".75" stroke-width="1.6" stroke-linecap="round" stroke-dasharray=".1 4"/>
+            <!-- monograma en relieve -->
+            <text class="lacre__mono" x="70" y="78.5" transform="translate(.8 1)" fill="#16030A" fill-opacity=".8" data-monograma>R&amp;D</text>
+            <text class="lacre__mono" x="70" y="78.5" transform="translate(-.55 -.55)" fill="#D98C9B" fill-opacity=".5" data-monograma>R&amp;D</text>
+            <text class="lacre__mono" x="70" y="78.5" fill="#7A2233" data-monograma>R&amp;D</text>
+            <!-- grano sobre todo el sello -->
+            <circle cx="70" cy="70" r="55" fill="#000" filter="url(#lacre-grano)" opacity=".9" mask="url(#lacre-forma)"/>
+          </g>
+        </svg>
       </button>
       <p class="sobre__ayuda">Tocá el sello para abrir</p>
     </div>
