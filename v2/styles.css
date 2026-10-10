@@ -130,7 +130,6 @@ img { max-width: 100%; display: block; }
 .lacre:hover { transform: rotate(-2deg) scale(1.04); }
 .lacre:active { transform: rotate(-2deg) scale(.97); }
 .lacre:focus-visible { outline: 2px solid var(--vino); outline-offset: 4px; border-radius: 50%; }
-.lacre__mono { font: italic 400 27px var(--serif); text-anchor: middle; letter-spacing: .5px; }
 .sobre__ayuda {
   font: 500 .6rem/1 var(--sans);
   letter-spacing: .28em; text-transform: uppercase;

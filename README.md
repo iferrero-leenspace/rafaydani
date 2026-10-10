@@ -58,6 +58,10 @@ La imagen de la vista previa de WhatsApp (`og:image` en `index.html`) apunta a e
 - **Música**: subir la canción como `assets/musica.mp3`. Sin archivo, el botón de música no aparece. Arranca cuando el invitado toca "Abrir invitación".
 - **Titular de las cuentas**, si quieren mostrarlo junto al número.
 
+## Al cambiar estilos o scripts
+
+Los archivos propios se cargan con un número de versión (`styles.css?v=20261011`, `app.js?v=…`, etc.) en `index.html`, `v2/index.html` y `generar.html`. Si se cambia algún CSS o JS, subir ese número en los tres archivos: así los celulares no mezclan una página nueva con estilos viejos guardados en caché.
+
 ## Probar en la compu
 
 ```sh
