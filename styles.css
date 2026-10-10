@@ -92,6 +92,25 @@ body:not(.cerrado) .sobre { opacity: 0; visibility: hidden; }
   padding: 48px 16px 72px;
   position: relative;
 }
+.hero--foto {
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+.hero--foto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 16, 14, .32) 0%, rgba(20, 16, 14, .1) 38%, rgba(20, 16, 14, .58) 100%);
+}
+.hero--foto .flor { display: none; }
+.hero--foto .titulo__caps,
+.hero--foto .titulo__script,
+.hero--foto .nombres,
+.hero--foto .fecha,
+.hero--foto .caps--it { color: #fff; }
+.hero--foto .linea { border-color: rgba(255, 255, 255, .85); }
+.hero--foto .scroll { color: rgba(255, 255, 255, .85); }
 .titulo { margin: 0; font-weight: 400; line-height: 1; }
 .titulo__caps {
   display: block;

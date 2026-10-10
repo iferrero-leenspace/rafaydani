@@ -30,6 +30,14 @@
     $("#camino").appendChild(el("li", { text: paso }));
   });
 
+  // ---------- Foto de fondo de la portada ----------
+  if (B.heroFoto) {
+    var hero = document.querySelector(".hero");
+    hero.classList.add("hero--foto");
+    hero.style.backgroundImage = "url('" + B.heroFoto + "')";
+    hero.style.backgroundPosition = B.heroFotoPosicion || "center";
+  }
+
   // ---------- Invitación personalizada (?i=...) ----------
   // El link lleva codificados el nombre de la invitación y las personas incluidas.
   // Se genera con generar.html.
