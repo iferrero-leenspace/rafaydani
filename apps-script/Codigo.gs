@@ -57,7 +57,8 @@ function doPost(e) {
 function doGet() {
   var respuesta;
   try {
-    respuesta = { ok: true, planilla: SpreadsheetApp.getActiveSpreadsheet().getName(), hoja: obtenerHoja_().getName() };
+    var hoja = obtenerHoja_(); // primero: avisa con un mensaje claro si el script no está vinculado
+    respuesta = { ok: true, planilla: SpreadsheetApp.getActiveSpreadsheet().getName(), hoja: hoja.getName() };
   } catch (err) {
     respuesta = { ok: false, error: String(err) };
   }
