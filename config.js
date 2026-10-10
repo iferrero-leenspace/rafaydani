@@ -53,6 +53,14 @@ window.BODA = {
   musica: "assets/musica.mp3",
   cancion: "Mirrors · Justin Timberlake",
 
-  // Fotos para la galería (p. ej. ["assets/fotos/1.jpg", ...]). Vacío = sección oculta.
-  fotos: [],
+  // Fotos para la galería: siempre 6, para la cuadrícula de 3x2 en escritorio.
+  // La última está repetida como relleno hasta tener la sexta foto real.
+  fotos: [
+    "assets/fotos/1.jpg",
+    "assets/fotos/2.jpg",
+    "assets/fotos/3.jpg",
+    "assets/fotos/4.jpg",
+    "assets/fotos/5.jpg",
+    "assets/fotos/5.jpg",
+  ],
 };
