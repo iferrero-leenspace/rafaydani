@@ -317,6 +317,14 @@ body:not(.cerrado) .sobre { opacity: 0; visibility: hidden; transform: scale(1.0
   margin: 0 auto 1.5rem;
   color: var(--vino); /* mismo bordó que la línea de arriba y el título de la tarjeta */
 }
+/* Íconos de las secciones Dress code y Regalos (trazo más grueso que los de "El día", por eso un poco más chicos) */
+.icono-seccion {
+  display: block;
+  height: 64px; width: auto;
+  margin: 0 auto 1.5rem;
+}
+.regalos .icono-seccion { color: var(--vino); }
+.dress .icono-seccion { color: var(--vino-claro); }
 .evento__tipo {
   font: 500 .66rem/1 var(--sans);
   letter-spacing: .32em; text-transform: uppercase;
