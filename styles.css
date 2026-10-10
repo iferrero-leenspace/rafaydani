@@ -209,6 +209,34 @@ body:not(.cerrado) .sobre { opacity: 0; visibility: hidden; }
 .foto-btn:hover img, .foto-btn:focus-visible img { transform: scale(1.04); filter: brightness(.94); }
 .foto-btn:focus-visible { outline: 2px solid var(--tinta); outline-offset: 3px; }
 
+/* Celular: carrusel deslizable (se ve un pedacito de la foto siguiente) */
+.galeria__puntos { display: none; }
+@media (max-width: 559px) {
+  .galeria {
+    display: flex; gap: 10px;
+    position: relative;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-inline: calc(50% - 50vw);
+    padding-inline: 11vw;
+    scroll-padding-inline: 11vw;
+  }
+  .galeria::-webkit-scrollbar { display: none; }
+  .foto-btn { flex: 0 0 78vw; scroll-snap-align: center; }
+  .galeria__puntos { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+  .galeria__punto {
+    width: 7px; height: 7px; padding: 0;
+    border: 0; border-radius: 50%;
+    background: var(--linea);
+    cursor: pointer;
+    transition: width .3s ease, background .3s ease;
+  }
+  .galeria__punto.activo { width: 22px; border-radius: 4px; background: var(--tinta); }
+  .galeria__punto:focus-visible { outline: 2px solid var(--tinta); outline-offset: 3px; }
+}
+
 /* Celular grande / tablet: 2 fotos por fila */
 @media (min-width: 560px) {
   .galeria { grid-template-columns: repeat(2, 1fr); }

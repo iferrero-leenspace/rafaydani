@@ -186,6 +186,38 @@
       $("#fotos").appendChild(boton);
     });
 
+    // Carrusel en celular: el deslizamiento lo hace el CSS (scroll-snap);
+    // acá solo van los puntos que marcan la foto actual. En pantallas
+    // más grandes los puntos se ocultan y la galería es una cuadrícula.
+    var carrusel = $("#fotos");
+    var fotosBtns = carrusel.querySelectorAll(".foto-btn");
+    var puntos = el("div", { class: "galeria__puntos", role: "group", "aria-label": "Fotos" });
+    fotosBtns.forEach(function (boton, i) {
+      var punto = el("button", { type: "button", class: "galeria__punto", "aria-label": "Ir a la foto " + (i + 1) });
+      punto.addEventListener("click", function () {
+        carrusel.scrollTo({ left: boton.offsetLeft - (carrusel.clientWidth - boton.offsetWidth) / 2, behavior: "smooth" });
+      });
+      puntos.appendChild(punto);
+    });
+    carrusel.insertAdjacentElement("afterend", puntos);
+
+    function marcarPunto() {
+      var centro = carrusel.getBoundingClientRect().left + carrusel.clientWidth / 2;
+      var actual = 0, menor = Infinity;
+      fotosBtns.forEach(function (b, i) {
+        var r = b.getBoundingClientRect();
+        var d = Math.abs(r.left + r.width / 2 - centro);
+        if (d < menor) { menor = d; actual = i; }
+      });
+      puntos.querySelectorAll(".galeria__punto").forEach(function (p, i) {
+        p.classList.toggle("activo", i === actual);
+        p.setAttribute("aria-current", i === actual ? "true" : "false");
+      });
+    }
+    carrusel.addEventListener("scroll", marcarPunto, { passive: true });
+    window.addEventListener("resize", marcarPunto);
+    marcarPunto();
+
     $("#lightbox-cerrar").addEventListener("click", cerrarLightbox);
     btnSiguiente.addEventListener("click", function () { mostrarFoto(indiceActual + 1); });
     btnAnterior.addEventListener("click", function () { mostrarFoto(indiceActual - 1); });
