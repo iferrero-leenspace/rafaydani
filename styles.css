@@ -165,9 +165,20 @@ body:not(.cerrado) .sobre { opacity: 0; visibility: hidden; }
 }
 
 /* Galería */
-.galeria { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-.galeria img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
-.galeria img:first-child:nth-last-child(odd) { grid-column: span 2; aspect-ratio: 4/3; }
+.seccion--ancha { max-width: 44rem; }
+.galeria { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.galeria img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+
+/* Celular grande / tablet: 2 fotos por fila */
+@media (min-width: 560px) {
+  .galeria { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Escritorio: cuadrícula de 3x2 */
+@media (min-width: 900px) {
+  .seccion--ancha { max-width: 64rem; }
+  .galeria { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+}
 
 /* Regalos */
 .cuentas { display: grid; gap: 14px; max-width: 26rem; margin: 0 auto; }
