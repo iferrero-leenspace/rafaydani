@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Propuesta de rediseño: comparte config.js, app.js y assets con la versión principal. -->
+  <base href="../">
+  <title>Rafa & Dani · 19.12.2026</title>
+  <meta name="description" content="Nos casamos el 19 de diciembre de 2026. ¡Te esperamos!">
+  <meta property="og:title" content="Rafa & Dani · Nos casamos">
+  <meta property="og:description" content="19 de diciembre de 2026 · Confirmá tu asistencia antes del 19 de noviembre">
+  <meta property="og:image" content="https://iferrero-leenspace.github.io/rafaydani/assets/og.jpg">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#F4EEE6">
+  <link rel="icon" href="assets/flor.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;1,300&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="v2/styles.css">
+</head>
+<body class="cerrado">
+
+  <!-- Sobre con lacre: el clic habilita la música -->
+  <div id="sobre" class="sobre" role="dialog" aria-label="Invitación">
+    <div class="sobre__contenido">
+      <p class="ojo">Tenemos el honor de invitar a</p>
+      <p id="sobre-para" class="sobre__para">nuestros seres queridos</p>
+      <p class="ojo">a celebrar nuestro casamiento</p>
+      <button id="abrir" class="lacre" type="button" aria-label="Abrir invitación">
+        <span class="lacre__mono" data-monograma>R&amp;D</span>
+      </button>
+      <p class="sobre__ayuda">Tocá el sello para abrir</p>
+    </div>
+  </div>
+
+  <main>
+    <!-- Portada, estilo tapa de revista -->
+    <section class="hero">
+      <div class="hero__barra">
+        <span class="hero__mono" data-monograma>R&amp;D</span>
+      </div>
+      <div class="hero__texto">
+        <p class="ojo ojo--claro">Nos casamos</p>
+        <h1 class="hero__nombres" data-nombres>Rafa &amp; Dani</h1>
+        <div class="hero__datos">
+          <span data-dia-semana>Sábado</span>
+          <span class="hero__punto" aria-hidden="true"></span>
+          <span data-bind="fechaTexto"></span>
+          <span class="hero__punto" aria-hidden="true"></span>
+          <span>Montevideo</span>
+        </div>
+      </div>
+      <a href="#intro" class="scroll" data-ancla aria-label="Bajar">
+        <span>Scroll</span>
+        <i aria-hidden="true"></i>
+      </a>
+      <button id="hero-cambiar-foto" type="button" class="hero__cambiar-foto" hidden>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 3l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 21l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        <span>Otra foto</span>
+      </button>
+    </section>
+
+    <!-- Cinta animada -->
+    <div class="cinta" aria-hidden="true">
+      <div class="cinta__pista">
+        <span data-bind="novios"></span><b>✦</b><span data-bind="fechaTexto"></span><b>✦</b><span data-bind="fiesta.lugar"></span><b>✦</b><span>Montevideo</span><b>✦</b>
+        <span data-bind="novios"></span><b>✦</b><span data-bind="fechaTexto"></span><b>✦</b><span data-bind="fiesta.lugar"></span><b>✦</b><span>Montevideo</span><b>✦</b>
+      </div>
+    </div>
+
+    <!-- Invitados de este link -->
+    <section id="para" class="bloque para reveal" hidden>
+      <p class="ojo">Esta invitación es para</p>
+      <ul id="para-lista" class="para__lista"></ul>
+      <p id="para-nota" class="texto-suave"></p>
+    </section>
+
+    <!-- Frase -->
+    <section id="intro" class="bloque intro reveal">
+      <p class="intro__frase">
+        Después de tantos brindis juntos, llegó <em>el más importante.</em>
+      </p>
+      <p class="firma" data-bind="novios"></p>
+    </section>
+
+    <!-- Cuenta regresiva -->
+    <section id="cuenta" class="bloque cuenta-bloque reveal">
+      <p class="ojo">Faltan</p>
+      <div class="cuenta" aria-live="off">
+        <div><span id="c-dias">--</span><small>días</small></div>
+        <div><span id="c-horas">--</span><small>horas</small></div>
+        <div><span id="c-min">--</span><small>min</small></div>
+        <div><span id="c-seg">--</span><small>seg</small></div>
+      </div>
+      <a id="agendar" class="enlace" target="_blank" rel="noopener">Agendar en el calendario <span aria-hidden="true">→</span></a>
+    </section>
+
+    <!-- El día -->
+    <section class="bloque dia">
+      <header class="encabezado reveal">
+        <p class="ojo"><span class="num">01</span> El día</p>
+        <h2 class="titulo">Ceremonia &amp; <em>fiesta</em></h2>
+      </header>
+
+      <div class="eventos">
+        <article class="evento reveal">
+          <p class="evento__tipo">Ceremonia</p>
+          <p class="evento__hora" data-bind="ceremonia.hora"></p>
+          <p class="evento__lugar" data-bind="ceremonia.lugar"></p>
+          <p class="texto-suave" data-bind="ceremonia.direccion"></p>
+          <a class="enlace" data-href="ceremonia.mapa" target="_blank" rel="noopener">Cómo llegar <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="evento reveal">
+          <p class="evento__tipo">Fiesta</p>
+          <p class="evento__hora" data-bind="fiesta.hora"></p>
+          <p class="evento__lugar" data-bind="fiesta.lugar"></p>
+          <p class="texto-suave" data-bind="fiesta.direccion"></p>
+          <div class="camino">
+            <p class="ojo">Camino sugerido</p>
+            <ol id="camino" class="camino__pasos"></ol>
+          </div>
+          <a class="enlace" data-href="fiesta.mapa" target="_blank" rel="noopener">Cómo llegar <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Galería -->
+    <section id="galeria" class="bloque galeria-bloque reveal" hidden>
+      <div id="fotos" class="galeria"></div>
+    </section>
+
+    <!-- Dress code: bloque oscuro -->
+    <section class="bloque oscuro dress reveal">
+      <p class="ojo ojo--claro"><span class="num">02</span> Dress code</p>
+      <p class="dress__valor" data-bind="dressCode"></p>
+      <p class="dress__nota">Vení como para la foto que vas a querer guardar.</p>
+    </section>
+
+    <!-- Regalos -->
+    <section class="bloque regalos reveal">
+      <header class="encabezado">
+        <p class="ojo"><span class="num">03</span> Regalos</p>
+      </header>
+      <p class="texto" data-bind="regalos.texto"></p>
+      <div id="cuentas" class="cuentas"></div>
+    </section>
+
+    <!-- Confirmación -->
+    <section id="rsvp" class="bloque rsvp reveal">
+      <div id="rsvp-intro">
+        <p class="ojo"><span class="num">04</span> RSVP</p>
+        <h2 class="titulo">Confirmá tu <em>asistencia</em></h2>
+        <p class="texto-suave">Por favor, confirmá antes del <strong data-bind="rsvp.fechaLimiteTexto"></strong>.</p>
+      </div>
+
+      <form id="form" class="form" novalidate>
+        <div id="form-general" class="campo" hidden>
+          <label for="nombre-general">Nombre y apellido</label>
+          <input id="nombre-general" type="text" autocomplete="name">
+        </div>
+        <div id="personas"></div>
+        <div class="campo">
+          <label for="mensaje">Un mensaje para los novios <span class="opc">(opcional)</span></label>
+          <textarea id="mensaje" rows="3"></textarea>
+        </div>
+        <p id="form-error" class="form__error" role="alert"></p>
+        <button id="enviar" type="submit" class="btn">Enviar confirmación</button>
+      </form>
+
+      <div id="gracias" class="gracias" hidden>
+        <p class="titulo"><em>¡Gracias!</em></p>
+        <p id="gracias-texto" class="texto"></p>
+        <button id="modificar" type="button" class="btn btn--linea">Modificar respuesta</button>
+      </div>
+
+      <p id="rsvp-cerrado" class="texto" hidden>El plazo del formulario ya terminó. Por favor, confirmá con los novios vía WhatsApp.</p>
+    </section>
+
+    <footer class="pie">
+      <p class="ojo ojo--claro">¡Te esperamos!</p>
+      <p class="pie__firma" data-bind="novios"></p>
+      <p class="pie__fecha" data-bind="fechaTexto"></p>
+      <span class="pie__mono" data-monograma>R&amp;D</span>
+    </footer>
+  </main>
+
+  <!-- Música -->
+  <button id="musica" class="musica" aria-label="Pausar música" hidden>
+    <svg class="musica__on" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>
+    <svg class="musica__off" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/><path d="M3 3l18 18"/></svg>
+  </button>
+  <audio id="audio" loop preload="none"></audio>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <!-- Foto ampliada -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+    <button id="lightbox-cerrar" class="lightbox__cerrar" type="button" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <button id="lightbox-anterior" class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Foto anterior">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <figure class="lightbox__figura">
+      <img id="lightbox-img" class="lightbox__img" src="" alt="Rafa y Dani">
+      <figcaption id="lightbox-contador" class="lightbox__contador"></figcaption>
+    </figure>
+    <button id="lightbox-siguiente" class="lightbox__nav lightbox__nav--next" type="button" aria-label="Foto siguiente">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+  <script src="v2/v2.js"></script>
+</body>
+</html>
