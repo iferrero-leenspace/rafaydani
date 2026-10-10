@@ -228,8 +228,11 @@ body:not(.cerrado) .sobre { opacity: 0; visibility: hidden; transform: scale(1.0
   padding: .95rem 0;
   font: italic 300 1.35rem/1 var(--serif);
 }
-.cinta__pista { display: inline-flex; align-items: center; animation: cinta 38s linear infinite; }
-.cinta__pista > * { margin-right: 1.5rem; }
+/* La pista son dos grupos iguales y se corre exactamente uno (-50%): sin cortes.
+   v2.js repite el texto dentro de cada grupo hasta que un grupo llena la pantalla. */
+.cinta__pista { display: flex; width: max-content; align-items: center; animation: cinta var(--cinta-dur, 70s) linear infinite; }
+.cinta__grupo { display: flex; flex: none; align-items: center; }
+.cinta__grupo > * { flex: none; margin-right: 1.5rem; }
 .cinta b { font-style: normal; font-weight: 400; font-size: .7rem; color: var(--vino-claro); }
 
 /* ---------- Bloques ---------- */

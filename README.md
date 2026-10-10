@@ -5,15 +5,18 @@ Invitación web del casamiento. Es un sitio estático (HTML, CSS y JS, sin build
 | Archivo | Para qué |
 |---|---|
 | `config.js` | **Todos los datos editables**: fecha, lugares, mapas, camino sugerido, cuentas, opciones de restricción alimentaria, música, fotos. |
-| `index.html` | La invitación. |
-| `generar.html` | Arma el link personalizado de cada grupo de invitados y el mensaje de WhatsApp. |
+| `v2/` | **La invitación que van a usar** (versión editorial: portada tipo revista, sello de lacre, cinta animada). Comparte `config.js`, `app.js`, fotos y música con la original. |
+| `v2/generar.html` | Arma el link personalizado de cada grupo de invitados (apunta a la v2) y el mensaje de WhatsApp. |
+| `index.html` | La invitación original (v1), se deja por las dudas. |
+| `generar.html` | Lo mismo que `v2/generar.html`, pero los links apuntan a la invitación original. |
+| `assets/og-v2.jpg` | La imagen que sale al compartir la v2 por WhatsApp (1200×630). La original usa `assets/og.jpg`. |
 | `apps-script/Codigo.gs` | Script que anota las confirmaciones en una planilla de Google. |
 
 ## Invitaciones personalizadas
 
 Cada grupo recibe su propio link. La invitación muestra "Esta invitación es para: Juan Pérez, Ana López" y "Reservamos 2 lugares", y el formulario pide la confirmación de cada persona por separado. Así queda claro quiénes están invitados.
 
-1. Abrir **https://iferrero-leenspace.github.io/rafaydani/generar.html**.
+1. Abrir **https://iferrero-leenspace.github.io/rafaydani/v2/generar.html** (para la invitación original: `…/generar.html`).
 2. Poner el saludo (p. ej. "Familia Pérez") y las personas, una por línea.
 3. Copiar el mensaje o tocar "Enviar por WhatsApp".
 
@@ -60,7 +63,11 @@ La imagen de la vista previa de WhatsApp (`og:image` en `index.html`) apunta a e
 
 ## Al cambiar estilos o scripts
 
-Los archivos propios se cargan con un número de versión (`styles.css?v=20261011`, `app.js?v=…`, etc.) en `index.html`, `v2/index.html` y `generar.html`. Si se cambia algún CSS o JS, subir ese número en los tres archivos: así los celulares no mezclan una página nueva con estilos viejos guardados en caché.
+Los archivos propios se cargan con un número de versión (`styles.css?v=20261013`, `app.js?v=…`, etc.) en `index.html`, `v2/index.html`, `generar.html` y `v2/generar.html`. Si se cambia algún CSS o JS, subir ese número en los cuatro archivos: así los celulares no mezclan una página nueva con estilos viejos guardados en caché.
+
+## Imagen al compartir por WhatsApp
+
+WhatsApp guarda la vista previa de cada link. Si se cambia la imagen, usar **un nombre de archivo nuevo** (p. ej. `og-v2b.jpg`) y actualizar `og:image` en `v2/index.html`; si no, a quienes ya recibieron el link les puede seguir apareciendo la anterior. Para probar una vista previa nueva se puede pegar el link en https://developers.facebook.com/tools/debug/ y tocar "Scrape Again".
 
 ## Probar en la compu
 
