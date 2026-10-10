@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261011">
+  <link rel="stylesheet" href="styles.css?v=20261013">
   <style>
     .gen { max-width: 32rem; margin: 0 auto; padding: 48px 16px 96px; text-align: left; }
     .gen h1 { text-align: center; }
@@ -47,54 +47,6 @@
 
   <div id="toast" class="toast" role="status"></div>
 
-  <script>
-    (function () {
-      var $ = function (s) { return document.querySelector(s); };
-      var base = location.href.replace(/generar\.html.*$/, "");
-
-      function encode(obj) {
-        var bytes = new TextEncoder().encode(JSON.stringify(obj));
-        var bin = "";
-        bytes.forEach(function (b) { bin += String.fromCharCode(b); });
-        return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-      }
-
-      function actualizarWhatsapp() {
-        $("#whatsapp").href = "https://wa.me/?text=" + encodeURIComponent($("#mensaje-wa").value);
-      }
-
-      $("#generar").addEventListener("click", function () {
-        var personas = $("#personas").value.split("\n").map(function (s) { return s.trim(); }).filter(Boolean);
-        if (!personas.length) { alert("Escribí al menos una persona."); return; }
-        var grupo = $("#grupo").value.trim() || personas.join(" y ");
-        var link = base + "?i=" + encode({ g: grupo, p: personas });
-
-        $("#link").textContent = link;
-        $("#probar").href = link;
-        var singular = personas.length === 1;
-        $("#mensaje-wa").value =
-          "¡Hola " + grupo + "! Con mucha alegría queremos " + (singular ? "invitarte" : "invitarlos") +
-          " a nuestro casamiento el 19 de diciembre. En este link " + (singular ? "encontrarás" : "encontrarán") +
-          " todos los detalles y el formulario para confirmar:\n\n" +
-          link + "\n\nRafa y Dani";
-        actualizarWhatsapp();
-        $("#resultado").hidden = false;
-      });
-
-      $("#mensaje-wa").addEventListener("input", actualizarWhatsapp);
-
-      $("#copiar").addEventListener("click", function () {
-        var ta = $("#mensaje-wa");
-        ta.select();
-        (navigator.clipboard ? navigator.clipboard.writeText(ta.value) : Promise.resolve(document.execCommand("copy")))
-          .then(function () {
-            var t = $("#toast");
-            t.textContent = "Mensaje copiado";
-            t.classList.add("visible");
-            setTimeout(function () { t.classList.remove("visible"); }, 2000);
-          });
-      });
-    })();
-  </script>
+  <script src="generar.js?v=20261013" data-destino=""></script>
 </body>
 </html>

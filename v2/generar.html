@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <!-- Genera links para la invitación v2. Comparte estilos con v2/ y la lógica con generar.js. -->
+  <base href="../">
+  <title>Generar invitaciones · v2</title>
+  <meta name="theme-color" content="#F4EEE6">
+  <link rel="icon" href="assets/flor.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="v2/styles.css?v=20261013">
+  <style>
+    .gen { max-width: 34rem; margin: 0 auto; padding: 72px 24px 110px; text-align: left; }
+    .gen .ojo, .gen h1, .gen .ayuda { text-align: center; }
+    .gen .ayuda { max-width: 28rem; margin: 0 auto 2.4rem; }
+    .gen .btn { display: block; width: 100%; text-align: center; }
+    .gen textarea { font-family: var(--sans); resize: vertical; }
+    .resultado { margin-top: 2.4rem; padding: 1.6rem 1.3rem 1.7rem; background: var(--crema); border: 1px solid var(--linea); position: relative; }
+    .resultado::before { content: ""; position: absolute; top: 0; left: 50%; width: 40px; height: 2px; transform: translateX(-50%); background: var(--vino); }
+    .resultado code { display: block; word-break: break-all; font: 400 .78rem/1.5 var(--sans); background: var(--papel); border: 1px solid var(--linea); padding: .7rem .8rem; margin: .1rem 0 1.2rem; }
+  </style>
+</head>
+<body>
+  <main class="gen">
+    <p class="ojo">Rafa &amp; Dani</p>
+    <h1 class="titulo">Generar <em>invitación</em></h1>
+    <p class="ayuda texto-suave">Armá un link personalizado para cada grupo de invitados. En la invitación aparecen los nombres de las personas incluidas y cada una confirma por separado.</p>
+
+    <div class="campo">
+      <label for="grupo">Cómo se saluda en la portada</label>
+      <input id="grupo" type="text" placeholder="Familia Pérez · Juan y Ana · Sofi">
+    </div>
+    <div class="campo">
+      <label for="personas">Personas incluidas (una por línea)</label>
+      <textarea id="personas" rows="5" placeholder="Juan Pérez&#10;Ana López"></textarea>
+    </div>
+    <button id="generar" class="btn" type="button">Generar link</button>
+
+    <div id="resultado" class="resultado" hidden>
+      <label>Link de la invitación</label>
+      <code id="link"></code>
+      <label for="mensaje-wa">Mensaje para WhatsApp</label>
+      <textarea id="mensaje-wa" rows="7"></textarea>
+      <button id="copiar" class="btn btn--linea" type="button">Copiar mensaje</button>
+      <a id="whatsapp" class="btn" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+      <a id="probar" class="btn btn--linea" target="_blank" rel="noopener">Ver invitación</a>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="generar.js?v=20261013" data-destino="v2/"></script>
+</body>
+</html>

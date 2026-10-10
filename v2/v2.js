@@ -40,4 +40,36 @@
       destino.scrollIntoView({ behavior: "smooth" });
     });
   });
+
+  // Cinta animada: se repite el texto hasta que un grupo llena cualquier ancho de
+  // pantalla y se duplica el grupo, así el bucle no deja huecos ni cortes.
+  var cinta = document.querySelector(".cinta");
+  var pista = cinta && cinta.querySelector(".cinta__pista");
+  if (pista) {
+    var VELOCIDAD = 22; // px por segundo, igual en todas las pantallas
+    var unidad = Array.prototype.map.call(pista.querySelector(".cinta__grupo").children, function (n) { return n.cloneNode(true); });
+    var anchoArmado = 0;
+
+    var armarCinta = function () {
+      var ancho = cinta.clientWidth;
+      if (!ancho) return;
+      anchoArmado = ancho;
+      var grupo = document.createElement("div");
+      grupo.className = "cinta__grupo";
+      pista.textContent = "";
+      pista.appendChild(grupo);
+      var agregar = function () { unidad.forEach(function (n) { grupo.appendChild(n.cloneNode(true)); }); };
+      agregar();
+      for (var i = 0; i < 40 && grupo.getBoundingClientRect().width < ancho; i++) agregar();
+      pista.appendChild(grupo.cloneNode(true));
+      pista.style.setProperty("--cinta-dur", Math.round(grupo.getBoundingClientRect().width / VELOCIDAD) + "s");
+    };
+
+    armarCinta();
+    // Al cargar la tipografía cambia el ancho del texto: se vuelve a medir.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(armarCinta);
+    window.addEventListener("resize", function () {
+      if (cinta.clientWidth !== anchoArmado) armarCinta();
+    });
+  }
 })();

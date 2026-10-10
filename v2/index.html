@@ -5,18 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Propuesta de rediseño: comparte config.js, app.js y assets con la versión principal. -->
   <base href="../">
-  <title>Rafa & Dani · 19.12.2026</title>
+  <title>Rafa &amp; Dani · 19.12.2026</title>
   <meta name="description" content="Nos casamos el 19 de diciembre de 2026. ¡Te esperamos!">
-  <meta property="og:title" content="Rafa & Dani · Nos casamos">
+  <meta property="og:title" content="Rafa &amp; Dani · Nos casamos">
   <meta property="og:description" content="19 de diciembre de 2026 · Confirmá tu asistencia antes del 19 de noviembre">
-  <meta property="og:image" content="https://iferrero-leenspace.github.io/rafaydani/assets/og.jpg">
+  <meta property="og:image" content="https://iferrero-leenspace.github.io/rafaydani/assets/og-v2.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Rafa &amp; Dani, nos casamos el 19 de diciembre de 2026">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_UY">
   <meta name="theme-color" content="#F4EEE6">
   <link rel="icon" href="assets/flor.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;1,300&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="v2/styles.css?v=20261011">
+  <link rel="stylesheet" href="v2/styles.css?v=20261013">
 </head>
 <body class="cerrado">
 
@@ -127,8 +131,8 @@
     <!-- Cinta animada -->
     <div class="cinta" aria-hidden="true">
       <div class="cinta__pista">
-        <span data-bind="novios"></span><b>✦</b><span data-bind="fechaTexto"></span><b>✦</b><span data-bind="fiesta.lugar"></span><b>✦</b><span>Montevideo</span><b>✦</b>
-        <span data-bind="novios"></span><b>✦</b><span data-bind="fechaTexto"></span><b>✦</b><span data-bind="fiesta.lugar"></span><b>✦</b><span>Montevideo</span><b>✦</b>
+        <div class="cinta__grupo"><span data-bind="novios"></span><b>✦</b><span data-bind="fechaTexto"></span><b>✦</b><span data-bind="fiesta.lugar"></span><b>✦</b><span>Montevideo</span><b>✦</b></div>
+        <div class="cinta__grupo"><span data-bind="novios"></span><b>✦</b><span data-bind="fechaTexto"></span><b>✦</b><span data-bind="fiesta.lugar"></span><b>✦</b><span>Montevideo</span><b>✦</b></div>
       </div>
     </div>
 
@@ -275,8 +279,8 @@
     </button>
   </div>
 
-  <script src="config.js?v=20261011"></script>
-  <script src="app.js?v=20261011"></script>
-  <script src="v2/v2.js?v=20261011"></script>
+  <script src="config.js?v=20261013"></script>
+  <script src="app.js?v=20261013"></script>
+  <script src="v2/v2.js?v=20261013"></script>
 </body>
 </html>
